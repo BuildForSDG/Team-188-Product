@@ -8,14 +8,20 @@ authors = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
+flask = "^1.1.2"
+flask-sqlalchemy = "^2.4.1"
+flask-migrate = "^2.5.3"
+psycopg2-binary = "^2.8.5"
+Flask-API = "^2.0"
+python-dotenv = "^0.13.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 flake8 = "^3.7.9"
 
+[tool.poetry.scripts]
+app = 'app:run'
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
-[tool.poetry.scripts]
-app = 'src.app:run'

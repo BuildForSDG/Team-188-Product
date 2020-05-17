@@ -1,7 +1,6 @@
-A one-liner phrase describing this project or app
+An Application that helps link up people with mental illness in the community to specialists.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/89420f7e69f744a38f0bc6f30ff78850)](https://app.codacy.com/gh/BuildForSDG/Team-188-Product?utm_source=github.com&utm_medium=referral&utm_content=BuildForSDG/Team-188-Product&utm_campaign=Badge_Grade_Settings)
-[![Codacy Badge](https://img.shields.io/badge/Code%20Quality-D-red)](https://img.shields.io/badge/Code%20Quality-D-red)
 
 
 ## About

@@ -1,51 +1,41 @@
-from unittest import TestCase
-from instance.config import app_config
+import unittest
 from flask import current_app
-from src.api import create_app
+from src.api import app
 
 
-class TestDevelopmentConfig(TestCase):
+class TestDevelopmentConfig(unittest.TestCase):
 
-    def setUp(self):
-        """Define test variables and initialize app."""
-        self.app = create_app(config_name = "development")
+    def create_app(self):
+        app.config.from_object('instance.config.DevelopmentConfig')
+        return app
 
     def test_app_is_development(self):
-        self.assertTrue(self.app.config['DEBUG'] is True)
+        self.assertTrue(app.config['DEBUG'] is True)
         self.assertFalse(current_app is None)
         self.assertTrue(
-            self.app.config['SQLALCHEMY_DATABASE_URI'] == "postgresql://localhost/product_db"
+            app.config['SQLALCHEMY_DATABASE_URI'] == "postgresql://kmwangemi:123@localhost/product_db"
         )
 
-class TestTestingConfig(TestCase):
+class TestTestingConfig(unittest.TestCase):
 
-    def setUp(self):
-        """Define test variables and initialize app."""
-        self.app = create_app(config_name = "testing")
+    def create_app(self):
+        app.config.from_object('instance.config.TestingConfig')
+        return app
 
     def test_app_is_testing(self):
-        self.assertTrue(self.app.config['DEBUG'] is True)
+        self.assertTrue(app.config['DEBUG'] is True)
         self.assertTrue(
-            self.app.config['SQLALCHEMY_DATABASE_URI'] == "postgresql://localhost/test_db"
+            app.config['SQLALCHEMY_DATABASE_URI'] == "postgresql://kmwangemi@localhost/test_db"
         )
 
-class TestProductionConfig(TestCase):
+class TestProductionConfig(unittest.TestCase):
     
-    def setUp(self):
-        """Define test variables and initialize app."""
-        self.app = create_app(config_name = "production")
+    def create_app(self):
+        app.config.from_object('instance.config.ProductionConfig')
+        return app
 
     def test_app_is_production(self):
-        self.assertTrue(self.app.config['DEBUG'] is False)
-
-class TestStagingConfig(TestCase):
-    
-    def setUp(self):
-        """Define test variables and initialize app."""
-        self.app = create_app(config_name = "staging")
-
-    def test_app_is_staging(self):
-        self.assertTrue(self.app.config['DEBUG'] is True)
+        self.assertTrue(app.config['DEBUG'] is False)
 
 
 if __name__ == '__main__':

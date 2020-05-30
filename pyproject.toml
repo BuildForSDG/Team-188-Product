@@ -12,8 +12,11 @@ flask = "^1.1.2"
 flask-sqlalchemy = "^2.4.1"
 flask-migrate = "^2.5.3"
 psycopg2-binary = "^2.8.5"
-Flask-API = "^2.0"
 python-dotenv = "^0.13.0"
+flask-bcrypt = "^0.7.1"
+PyJWT = "^1.7.1"
+flask_script = "^2.0.6"
+flask_cors = "^3.0.8"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

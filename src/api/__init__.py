@@ -1,20 +1,16 @@
-from flask_api import FlaskAPI
+import os
+from flask import Flask
+from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
-# local import
-from instance.config import app_config
+'''configuring the Flask App'''
+app = Flask(__name__)
+CORS(app)
 
+app_settings = os.getenv('APP_SETTINGS')
+app.config.from_object(app_settings)
+
+bcrypt = Bcrypt(app)
 # initialize sql-alchemy
-db = SQLAlchemy()
-
-
-def create_app(config_name = "development"):
-    '''configuring the Flask App'''
-    app = FlaskAPI(__name__, instance_relative_config=True)
-    app.url_map.strict_slashes = False
-    app.config.from_object(app_config[config_name])
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config.from_pyfile('config.py')
-    db.init_app(app)
-
-    return app
+db = SQLAlchemy(app)

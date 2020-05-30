@@ -1,34 +1,37 @@
 import os
+basedir = os.path.abspath(os.path.dirname(__file__))
 
-class Config(object):
-    """Parent configuration class."""
+class BaseConfig:
+    """Base configuration."""
     DEBUG = False
     CSRF_ENABLED = True
-    SECRET = os.getenv('SECRET')
+    BCRYPT_LOG_ROUNDS = 13
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    
+class DevelopmentConfig(BaseConfig):
+    """Development Configuration."""
+    DEBUG = True
+    BCRYPT_LOG_ROUNDS = 4
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
 
-class DevelopmentConfig(Config):
-    """Configurations for Development."""
-    DEBUG = True
-
-class TestingConfig(Config):
-    """Configurations for Testing, with a separate test database."""
+class TestingConfig(BaseConfig):
+    """Testing Configuration, with a separate test database."""
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/test_db'
     DEBUG = True
-
-class StagingConfig(Config):
-    """Configurations for Staging."""
-    DEBUG = True
-
-class ProductionConfig(Config):
-    """Configurations for Production."""
+    BCRYPT_LOG_ROUNDS = 4
+    SQLALCHEMY_DATABASE_URI = "postgresql://kmwangemi:@localhost/test_db"
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
+    
+class ProductionConfig(BaseConfig):
+    """Production Configuration."""
     DEBUG = False
     TESTING = False
+    BCRYPT_LOG_ROUNDS = 4
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
 
-app_config = {
-    'development': DevelopmentConfig,
-    'testing': TestingConfig,
-    'staging': StagingConfig,
-    'production': ProductionConfig,
-}
+# app_config = {
+#     'development': DevelopmentConfig,
+#     'testing': TestingConfig,
+#     'production': ProductionConfig,
+# }

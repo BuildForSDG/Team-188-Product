@@ -1,31 +1,32 @@
-import os
 from datetime import datetime, timedelta
-from flask import current_app
 import jwt
 
 from src.api import app, db, bcrypt
+
 
 class User(db.Model):
     """ User Model for storing user related details """
 
     __tablename__ = "users"
-    
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     first_name = db.Column(db.String(255), nullable=False)
     last_name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(256), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
-    registered_on = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
-    
+    registered_on = db.Column(
+        db.DateTime, default=db.func.current_timestamp(), nullable=False)
+
     def __init__(self, first_name, last_name, email, password):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
-        self.password = bcrypt.generate_password_hash(password, app.config.get('BCRYPT_LOG_ROUNDS')).decode()
+        self.password = bcrypt.generate_password_hash(
+            password, app.config.get('BCRYPT_LOG_ROUNDS')).decode()
         self.admin = False
         self.registered_on = datetime.now()
-        
+
     def password_is_valid(self, password):
         """
         Checks the password against it's hash to validates the user's password
@@ -42,7 +43,6 @@ class User(db.Model):
     def __repr__(self):
         """Return a representation of the user instance."""
         return "<User: {}{}>".format(self.first_name, self.last_name)
-
 
     def encode_auth_token(self, user_id):
         """
@@ -100,7 +100,8 @@ class BlacklistToken(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     token = db.Column(db.String(500), unique=True, nullable=False)
-    blacklisted_on = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
+    blacklisted_on = db.Column(
+        db.DateTime, default=db.func.current_timestamp(), nullable=False)
 
     def __init__(self, token):
         self.token = token

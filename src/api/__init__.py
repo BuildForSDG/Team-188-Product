@@ -32,7 +32,7 @@ bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 with app.app_context():
-    from src.api.models import user_model, article, comment, section
+    # from src.api.models import user_model, article, comment, section
     db.create_all()
 
 app.run()

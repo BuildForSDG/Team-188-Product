@@ -17,10 +17,14 @@ flask-bcrypt = "^0.7.1"
 PyJWT = "^1.7.1"
 flask_script = "^2.0.6"
 flask_cors = "^3.0.8"
+configparser = "^5.0.0"
+pymysql = "^0.9.3"
+pylint = "^2.5.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 flake8 = "^3.7.9"
+pylint = "^2.5.2"
 
 [tool.poetry.scripts]
 app = 'app:run'

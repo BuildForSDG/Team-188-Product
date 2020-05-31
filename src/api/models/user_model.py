@@ -15,6 +15,7 @@ class User(db.Model):
     email = db.Column(db.String(256), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
+    articles = db.relationship("Article", backref="user", lazy=True)
     registered_on = db.Column(
         db.DateTime, default=db.func.current_timestamp(), nullable=False)
 

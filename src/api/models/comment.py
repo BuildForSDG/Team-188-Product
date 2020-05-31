@@ -3,10 +3,15 @@ from datetime import datetime
 from src.api import db
 
 
-class Comment(db.model):
-    """modelling article comments"""
+class Comment(db.Model):
+
+    """
+    modelling article comments
+    """
+    ___table_name___ = "comments"
+
     comment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    article_id = db.Column(db.Integer)  # map to article being commented
+    article_id = db.Column(db.Integer, db.ForeignKey('articles.article_id'))
     comment_body = db.Column(db.String(500), nullable=False)
     timestamp = db.Column(db.Date)
 
